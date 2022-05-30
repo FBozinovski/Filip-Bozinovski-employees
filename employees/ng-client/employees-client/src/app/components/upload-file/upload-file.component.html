@@ -1,0 +1,42 @@
+<h3 class="mb-3">Employees</h3>
+<form (ngSubmit)="upload()" [formGroup]="uploadForm">
+  <div class="container-fluid pl-5">
+    <div class="row">
+      <input #file formControlName="fileUpload" type="file" accept=".csv"/>
+    </div>
+
+    <div class="row">
+      <input type="text" class="mt-2 w-75" required formControlName="dateFormat">
+    </div>
+
+    <div class="row">
+      <button type="submit" class="btn btn-success mt-2 w-25" [disabled]="uploadForm.invalid">Submit</button>
+    </div>
+  </div>
+</form>
+
+<div *ngIf="!!employeePairs">
+  <table class="table mt-4" *ngFor="let employeePair of employeePairs">
+    <thead>
+    <tr class="table-active">
+      <th>Project ID</th>
+      <th scope="col">First Employee ID</th>
+      <th scope="col">Second Employee ID</th>
+      <th scope="col">Days Worked</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let project of employeePair.projectResponseList; let projectIndex=index"
+        [class]="getClass(projectIndex)">
+      <td>{{project.firstEmployeeId}}</td>
+      <td>{{project.secondEmployeeId}}</td>
+      <td>{{project.id}}</td>
+      <td>{{project.daysWorked}}</td>
+    </tr>
+    <tr class="table-dark">
+      <td>Total days worked on all projects</td>
+      <td colspan="3">{{employeePair.daysWorked}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
